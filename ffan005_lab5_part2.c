@@ -16,7 +16,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States {Start, Initial, Press, Press1, Increment, Decrement, Reset, temp1, temp2} state;
+enum States {Start, Initial, Begin, Press, Press1, Increment, Decrement, Reset, temp1, temp2} state;
 
 void Tick(){
   switch(state){
@@ -25,6 +25,10 @@ void Tick(){
       break;
       
     case Initial:
+      state = Begin;
+      break;
+      
+    case Begin:
       state = Press1;
       break;
       
@@ -97,8 +101,12 @@ void Tick(){
     case Press:
       break;
       
+    case Begin:
+      PORTC = 0x07;
+      break;
+      
     case Press1:
-      PORTC = 0x08;
+      PORTC = PORTC + 1;
       break;
       
     case Increment:
