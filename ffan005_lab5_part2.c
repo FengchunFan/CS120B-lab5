@@ -74,7 +74,6 @@ void Tick(){
   
   switch(state){
     case Start:
-      PORTC = 0x07;
       break;
       
     case Initial:
@@ -85,10 +84,10 @@ void Tick(){
       break;
       
     case Increment:
-      if(PORTC < 0x08){
+      if(PORTC < 0x09){
         PORTC = PORTC + 1;
       } else {
-        PORTC = 0x08;
+        PORTC = 0x09;
       }
       break;
       
