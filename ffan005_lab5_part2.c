@@ -80,7 +80,7 @@ void Tick(){
       break;
       
     case Initial:
-      PORTC = PORTC + 1;
+      PORTC = 0x07;
       break;
       
     case Press:
