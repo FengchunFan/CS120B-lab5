@@ -98,7 +98,7 @@ void Tick(){
      break;
       
     case Reset:
-      PORTC = 0x08;
+      PORTC = 0x00;
       break;
       
     default:
