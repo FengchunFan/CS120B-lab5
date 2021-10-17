@@ -76,9 +76,11 @@ void Tick(){
   
   switch(state){
     case Start:
+      PORTC = 0x07;
       break;
       
     case Initial:
+      PORTC = 0x07;
       break;
       
     case Press:
@@ -91,6 +93,7 @@ void Tick(){
       break;
       
     case temp1:
+      PORTC = 0x08;
       if(PORTC < 0x08){
         PORTC = PORTC + 1;
       }
