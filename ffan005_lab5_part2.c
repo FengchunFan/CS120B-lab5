@@ -77,34 +77,34 @@ void Tick(){
       break;
       
     case Initial:
-      PORTC = 0x07;
+      PORTC = 0x08;
       break;
       
     case Press:
       break;
       
     case Increment:
-      if(PORTC < 0x09){
+     /* if(PORTC < 0x09){
         PORTC = PORTC + 1;
       } else {
         PORTC = 0x09;
-      }
+      }*/
       break;
       
     case Decrement:
-      if(PORTC > 0x00){
+     /* if(PORTC > 0x00){
         PORTC = PORTC - 1;
       }else{
         PORTC = 0x00;
-      }
+      }*/
      break;
       
     case Reset:
-      PORTC = 0x00;
+      PORTC = 0x08;
       break;
       
     default:
-      PORTC = 0x07;
+      PORTC = 0x08;
       break;
   }
 }
