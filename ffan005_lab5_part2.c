@@ -1,3 +1,4 @@
+
 /*     Author: ffan005
  *  Partner(s) Name:
  *      Lab Section:
@@ -93,7 +94,6 @@ void Tick(){
       break;
       
     case temp1:
-      PORTC = 0x08;
       if(PORTC < 0x08){
         PORTC = PORTC + 1;
       }
