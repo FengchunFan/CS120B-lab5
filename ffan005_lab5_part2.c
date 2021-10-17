@@ -93,7 +93,7 @@ void Tick(){
       break;
       
     case temp1:
-      if(PORTC < 0x08){
+      if(PORTC < 0x09){
         PORTC = PORTC + 1;
       }
       break;
