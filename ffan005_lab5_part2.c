@@ -84,17 +84,11 @@ void Tick(){
       break;
       
     case Increment:
-     if(PORTC < 0x08){
-        PORTC = PORTC + 1;
-      }
       PORTC = 0x08;
       break;
       
     case Decrement:
-     if(PORTC > 0x00){
-        PORTC = PORTC - 1;
-      }
-      PORTC = 0x08;
+      PORTC = 0x00;
      break;
       
     case Reset:
