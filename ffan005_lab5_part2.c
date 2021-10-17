@@ -40,7 +40,7 @@ void Tick(){
         
     case Increment:
       if((~PINA & 0x03) == 0x01){
-        state = Increment;
+        state = temp1;
       } else {
         state = Press;
       }
@@ -48,7 +48,7 @@ void Tick(){
       
     case Decrement:
       if((~PINA & 0x03) == 0x02){
-        state = Decrement;
+        state = temp2;
       } else {
         state = Press;
       }
@@ -94,7 +94,7 @@ void Tick(){
       break;
       
     case temp1:
-      if(PORTC < 0x08){
+      if(PORTC < 0x09){
         PORTC = PORTC + 1;
       }
       break;
