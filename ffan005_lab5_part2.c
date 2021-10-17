@@ -15,7 +15,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States {Start, Initial, Press, Increment, Decrement, Reset} state;
+enum States {Start, Initial, Press, Increment, Decrement, Reset, temp1, temp2} state;
 
 void Tick(){
   switch(state){
@@ -28,42 +28,44 @@ void Tick(){
       break;
       
     case Press:
-      if((PINA & 0x01) == 0x01){
-        state = Increment;
-      } else if ((PINA & 0x02) == 0x02){
-        state = Decrement;
-      } else if ((PINA & 0x03) == 0x03){
+      if((~PINA & 0x03) == 0x01){
+        state = temp1;
+      } else if ((~PINA & 0x03) == 0x02){
+        state = temp2;
+      } else if ((~PINA & 0x03) == 0x03){
         state = Reset;
       }
      break;
         
     case Increment:
-      if((PINA & 0x01) == 0x01){
+      if((~PINA & 0x03) == 0x01){
         state = Increment;
-      } else if ((PINA & 0x02) == 0x02){
-        state = Decrement;
-      } else if ((PINA & 0x03) == 0x03){
-        state = Reset;
+      } else {
+        state = Press;
       }
      break;
       
     case Decrement:
-      if((PINA & 0x02) == 0x02){
+      if((~PINA & 0x03) == 0x02){
         state = Decrement;
-      } else if ((PINA & 0x01) == 0x01){
-        state = Increment;
-      } else if ((PINA & 0x03) == 0x03){
-        state = Reset;
+      } else {
+        state = Press;
       }
      break;
       
+    case temp1:
+      state = Increment;
+      break;
+      
+    case temp2:
+      state = Decrement;
+      break;
+      
     case Reset:
-      if((PINA & 0x03) == 0x03){
+      if((~PINA & 0x03) == 0x03){
         state = Reset;
-      } else if ((PINA & 0x02) == 0x02){
-        state = Decrement;
-      } else if ((PINA & 0x01) == 0x01){
-        state = Increment;
+      } else {
+        state = Press;
       }
      break;
       
@@ -74,6 +76,7 @@ void Tick(){
   
   switch(state){
     case Start:
+      PORTC = 0x07;
       break;
       
     case Initial:
@@ -81,15 +84,24 @@ void Tick(){
       break;
       
     case Press:
-      PORTC = 0x07;
       break;
       
     case Increment:
-      PORTC = 0x07;
+      break;
+    
+    case Decrement:
       break;
       
-    case Decrement:
-      PORTC = 0x08;
+    case temp1:
+      if(PORTC < 0x08){
+        PORTC = PORTC + 1;
+      }
+      break;
+      
+    case temp2:
+      if(PORTC > 0x00){
+        PORTC = PORTC - 1;
+      }
      break;
       
     case Reset:
