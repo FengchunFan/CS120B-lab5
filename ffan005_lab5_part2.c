@@ -76,7 +76,7 @@ void Tick(){
   
   switch(state){
     case Start:
-      PORTC = 0x08;
+      PORTC = 0x07;
       break;
       
     case Initial:
@@ -109,7 +109,7 @@ void Tick(){
       break;
       
     default:
-      PORTC = 0x08;
+      PORTC = 0x07;
       break;
   }
 }
