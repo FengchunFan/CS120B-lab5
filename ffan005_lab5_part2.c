@@ -1,4 +1,3 @@
-
 /*     Author: ffan005
  *  Partner(s) Name:
  *      Lab Section:
@@ -16,7 +15,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States {Start, Initial, Begin, Press, Press1, Increment, Decrement, Reset, temp1, temp2} state;
+enum States {Start, Initial, Press, Increment, Decrement, Reset, temp1, temp2} state;
 
 void Tick(){
   switch(state){
@@ -25,24 +24,10 @@ void Tick(){
       break;
       
     case Initial:
-      state = Begin;
-      break;
-      
-    case Begin:
-      state = Press1;
+      state = Press;
       break;
       
     case Press:
-      if((~PINA & 0x03) == 0x01){
-        state = temp1;
-      } else if ((~PINA & 0x03) == 0x02){
-        state = temp2;
-      } else if ((~PINA & 0x03) == 0x03){
-        state = Reset;
-      }
-     break;
-      
-    case Press1:
       if((~PINA & 0x03) == 0x01){
         state = temp1;
       } else if ((~PINA & 0x03) == 0x02){
@@ -95,18 +80,10 @@ void Tick(){
       break;
       
     case Initial:
-      PORTC = 0x07;
+      PORTC = 0x08;
       break;
       
     case Press:
-      break;
-      
-    case Begin:
-      PORTC = 0x07;
-      break;
-      
-    case Press1:
-      PORTC = PORTC + 1;
       break;
       
     case Increment:
