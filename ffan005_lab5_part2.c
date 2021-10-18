@@ -7,8 +7,6 @@
  *      I acknowledge all content contained herein, excluding template or example
  *      code, is my own original work.
  */
-//After continuly failing half of the tests, I got some help from the TA
-
 
 #include <avr/io.h>
 #ifdef _SIMULATE_
@@ -27,14 +25,13 @@ void Tick(){
       
     case Initial:
       state = Press;
-      break;
       
     case Press:
       if(temp == 0x03){
         state = Reset;
       } else if (temp == 0x02){
         state = temp2;
-      } else if (temp == 0x03){
+      } else if (temp == 0x01){
         state = temp1;
       }
      break;
@@ -48,7 +45,7 @@ void Tick(){
      break;
       
     case Decrement:
-      if((~PINA & 0x03) == 0x02){
+      if(temp == 0x02){
         state = Decrement;
       } else {
         state = Press;
@@ -64,7 +61,7 @@ void Tick(){
       break;
       
     case Reset:
-      if((~PINA & 0x03) == 0x03){
+      if(temp == 0x03){
         state = Reset;
       } else {
         state = Press;
@@ -78,7 +75,6 @@ void Tick(){
   
   switch(state){
     case Start:
-      PORTC = 0x07;
       break;
       
     case Initial:
