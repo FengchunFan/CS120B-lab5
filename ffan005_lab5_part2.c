@@ -18,6 +18,8 @@
 enum States {Start, Initial, Press, Increment, Decrement, Reset, temp1, temp2} state;
 
 void Tick(){
+  
+  unsigned char temp = ~PINA & 0x03;
   switch(state){
     case Start:
       state = Initial;
@@ -28,17 +30,17 @@ void Tick(){
       break;
       
     case Press:
-      if((~PINA & 0x03) == 0x01){
-        state = temp1;
-      } else if ((~PINA & 0x03) == 0x02){
-        state = temp2;
-      } else if ((~PINA & 0x03) == 0x03){
+      if(temp == 0x03){
         state = Reset;
+      } else if (temp == 0x02){
+        state = temp2;
+      } else if (temp == 0x03){
+        state = temp1;
       }
      break;
         
     case Increment:
-      if((~PINA & 0x03) == 0x01){
+      if(temp == 0x01){
         state = Increment;
       } else {
         state = Press;
